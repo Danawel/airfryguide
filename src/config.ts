@@ -18,7 +18,7 @@ export const SITE = {
 
   // URL FINALE du blog — À REMPLACER après le déploiement Netlify.
   // Exemple : 'https://airfryguide.netlify.app'
-  url: 'https://airfryguide.netlify.app',
+  url: 'https://statuesque-lolly-d520d0.netlify.app',
 
   // Langue
   lang: 'fr',
