@@ -1,0 +1,77 @@
+---
+import '../styles/global.css';
+import { SITE } from '../config.ts';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Chemin canonique de la page, ex: "/guides/..." */
+  path?: string;
+  /** JSON-LD à injecter (schema.org) */
+  jsonLd?: object;
+  type?: 'website' | 'article';
+}
+
+const {
+  title,
+  description = SITE.description,
+  path = '',
+  jsonLd,
+  type = 'website',
+} = Astro.props;
+
+const fullTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} — ${SITE.tagline}`;
+const canonical = new URL(path, SITE.url).toString();
+---
+
+<!doctype html>
+<html lang={SITE.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="fr_FR" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍟</text></svg>" />
+
+    {jsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="inner">
+        <a class="brand" href="/">Air<span>Fry</span>Guide</a>
+        <nav class="nav">
+          <a href="/">Accueil</a>
+          <a href="/guides">Guides</a>
+          <a href="/comparatifs">Comparatifs</a>
+          <a href="/a-propos">À propos</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="inner">
+        <div>© {new Date().getFullYear()} {SITE.name}. Tous droits réservés.</div>
+        <div><a href="/a-propos">À propos & mentions</a></div>
+      </div>
+    </footer>
+  </body>
+</html>

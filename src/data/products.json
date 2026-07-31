@@ -1,0 +1,77 @@
+{
+  "_comment": "Base de données des produits air fryer mis en avant. L'ASIN est l'identifiant Amazon (visible dans l'URL d'un produit : /dp/ASIN). Remplace les ASIN par de vrais produits quand tu veux. Le prix est indicatif (affiché à titre d'exemple, Amazon ne permet pas d'afficher le prix live sans API).",
+  "products": [
+    {
+      "asin": "B08GYKNCCP",
+      "name": "Ninja Air Fryer AF100EU",
+      "shortName": "Ninja AF100EU",
+      "capacity": "3,8 L",
+      "power": "1550 W",
+      "priceHint": "~110 €",
+      "bestFor": "1 à 3 personnes",
+      "highlight": "Le meilleur rapport qualité/prix pour débuter",
+      "pros": ["Compact", "Très simple à utiliser", "Nettoyage facile (panier lavable)"],
+      "cons": ["Capacité limitée pour une famille"]
+    },
+    {
+      "asin": "B09XXTVN8N",
+      "name": "Ninja Foodi Dual Zone AF400EU",
+      "shortName": "Ninja Dual Zone",
+      "capacity": "9,5 L (2x4,75 L)",
+      "power": "2470 W",
+      "priceHint": "~230 €",
+      "bestFor": "Familles de 4 à 6 personnes",
+      "highlight": "Deux tiroirs indépendants pour cuire 2 plats à la fois",
+      "pros": ["Double zone de cuisson", "Grande capacité", "Fonction Sync (2 plats prêts en même temps)"],
+      "cons": ["Encombrant", "Plus cher"]
+    },
+    {
+      "asin": "B0B4DQ2N4S",
+      "name": "Philips Airfryer Série 3000 HD9243",
+      "shortName": "Philips 3000",
+      "capacity": "4,1 L",
+      "power": "1500 W",
+      "priceHint": "~90 €",
+      "bestFor": "2 à 4 personnes",
+      "highlight": "La marque historique, fiable et homogène",
+      "pros": ["Technologie Rapid Air éprouvée", "Cuisson homogène", "Marque de référence"],
+      "cons": ["Écran basique", "Moins de programmes"]
+    },
+    {
+      "asin": "B09WMKV2Z8",
+      "name": "Cosori Air Fryer Pro LE 5 L",
+      "shortName": "Cosori Pro LE",
+      "capacity": "5 L",
+      "power": "1500 W",
+      "priceHint": "~100 €",
+      "bestFor": "3 à 5 personnes",
+      "highlight": "9 programmes et application mobile avec recettes",
+      "pros": ["Bon volume", "Appli avec 100+ recettes", "Design soigné"],
+      "cons": ["Interface tactile parfois capricieuse"]
+    },
+    {
+      "asin": "B07VLKY2QX",
+      "name": "Moulinex Easy Fry & Grill",
+      "shortName": "Moulinex Easy Fry",
+      "capacity": "4,2 L",
+      "power": "1550 W",
+      "priceHint": "~120 €",
+      "bestFor": "2 à 4 personnes",
+      "highlight": "Combine air fryer et fonction grill",
+      "pros": ["2-en-1 (friture + grill)", "8 programmes", "SAV français"],
+      "cons": ["Panier un peu petit pour le grill"]
+    },
+    {
+      "asin": "B09B1LR2Z9",
+      "name": "Tefal Easy Fry XXL",
+      "shortName": "Tefal XXL",
+      "capacity": "6,5 L",
+      "power": "1830 W",
+      "priceHint": "~150 €",
+      "bestFor": "Familles nombreuses (5 à 8 personnes)",
+      "highlight": "Très grande capacité pour recevoir",
+      "pros": ["Énorme capacité", "Puissant", "Marque fiable"],
+      "cons": ["Prend beaucoup de place sur le plan de travail"]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { articlesByType, typeLabel } from '../lib/articles.ts';
+const articles = await articlesByType('guide');
+const fmt = (d: Date) => d.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+<BaseLayout title="Guides complets" description="Tous nos guides complets sur les air fryers : choix, utilisation, entretien et recettes." path="/guides">
+  <section class="hero"><h1>Guides complets</h1><p>Tout comprendre sur les friteuses sans huile.</p></section>
+  <div class="container wide">
+    {articles.length === 0 ? <p style="text-align:center;color:var(--muted)">Bientôt disponible.</p> : (
+      <div class="grid">
+        {articles.map((a) => (
+          <a class="card" href={`/${a.id}`}>
+            <span class="badge">{typeLabel(a.data.type)}</span>
+            <h2>{a.data.title}</h2><p>{a.data.description}</p>
+            <time datetime={a.data.pubDate.toISOString()}>{fmt(a.data.pubDate)}</time>
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+</BaseLayout>

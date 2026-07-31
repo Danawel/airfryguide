@@ -1,0 +1,36 @@
+---
+import productData from '../data/products.json';
+import { amazonLink } from '../config.ts';
+
+interface Props {
+  asin: string;
+}
+const { asin } = Astro.props;
+const p = productData.products.find((x) => x.asin === asin);
+---
+
+{p && (
+  <div class="product-card">
+    <div class="ptop">
+      <h4>{p.name}</h4>
+      <span class="price">{p.priceHint}</span>
+    </div>
+    <div class="specs">
+      <span class="spec">Capacité : {p.capacity}</span>
+      <span class="spec">Puissance : {p.power}</span>
+      <span class="spec">Idéal : {p.bestFor}</span>
+    </div>
+    <p class="highlight">{p.highlight}</p>
+    <div class="proscons">
+      <div><strong>Points forts</strong>
+        <ul class="pros">{p.pros.map((x) => <li>{x}</li>)}</ul>
+      </div>
+      <div><strong>Points faibles</strong>
+        <ul class="cons">{p.cons.map((x) => <li>{x}</li>)}</ul>
+      </div>
+    </div>
+    <a class="btn" href={amazonLink(p.asin)} target="_blank" rel="nofollow sponsored noopener">
+      Voir le prix sur Amazon →
+    </a>
+  </div>
+)}

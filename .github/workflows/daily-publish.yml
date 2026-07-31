@@ -1,0 +1,44 @@
+name: Publication quotidienne
+
+# Se déclenche tous les jours à 7h00 (heure de Paris = 5h00 UTC en été)
+# et peut aussi être lancé à la main depuis l'onglet Actions.
+on:
+  schedule:
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+
+# Autorise le workflow à écrire dans le dépôt (pour commiter le nouvel article)
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Installer les dépendances
+        run: npm install
+
+      - name: Générer l'article du jour
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: npm run generate
+
+      - name: Commiter et publier le nouvel article
+        run: |
+          git config user.name "AirFryGuide Bot"
+          git config user.email "bot@airfryguide.local"
+          git add src/content/articles/
+          if git diff --staged --quiet; then
+            echo "Aucun nouvel article à publier aujourd'hui."
+          else
+            git commit -m "Article du jour ($(date +%F))"
+            git push
+          fi

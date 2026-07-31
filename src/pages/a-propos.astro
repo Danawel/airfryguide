@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE, AMAZON } from '../config.ts';
+---
+<BaseLayout title="À propos" description={`À propos de ${SITE.name} et mentions d'affiliation.`} path="/a-propos">
+  <article class="article container">
+    <h1>À propos de {SITE.name}</h1>
+    <div class="article-body">
+      <p>{SITE.name} est un blog indépendant dédié aux <strong>air fryers</strong> (friteuses sans huile).
+      Nous publions chaque jour des guides complets, des comparatifs et des articles pratiques pour vous
+      aider à choisir le bon modèle et à en tirer le meilleur.</p>
+
+      <h2>Affiliation</h2>
+      <p>{AMAZON.disclosure}</p>
+      <p>Les prix affichés sont indicatifs et peuvent varier ; référez-vous toujours au prix affiché
+      sur Amazon au moment de votre achat.</p>
+
+      <h2>Contact</h2>
+      <p>Une question, une suggestion&nbsp;? Écrivez-nous et nous vous répondrons avec plaisir.</p>
+    </div>
+  </article>
+</BaseLayout>

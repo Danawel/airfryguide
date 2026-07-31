@@ -1,0 +1,65 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { SITE, AMAZON } from '../config.ts';
+import { publishedArticles, typeLabel } from '../lib/articles.ts';
+
+export async function getStaticPaths() {
+  const articles = await publishedArticles();
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+const d = article.data;
+
+const dateStr = d.pubDate.toLocaleDateString('fr-FR', {
+  year: 'numeric', month: 'long', day: 'numeric',
+});
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: d.title,
+  description: d.description,
+  datePublished: d.pubDate.toISOString(),
+  dateModified: (d.updatedDate ?? d.pubDate).toISOString(),
+  author: { '@type': 'Organization', name: SITE.author },
+  publisher: { '@type': 'Organization', name: SITE.name },
+  keywords: d.keywords.join(', '),
+  inLanguage: SITE.lang,
+};
+---
+
+<BaseLayout
+  title={d.title}
+  description={d.description}
+  path={`/${article.id}`}
+  type="article"
+  jsonLd={jsonLd}
+>
+  <article class="article container">
+    <span class="badge">{typeLabel(d.type)}</span>
+    <h1>{d.title}</h1>
+    <p class="meta">Publié le {dateStr} · {SITE.author}</p>
+
+    {d.products.length > 0 && (
+      <p class="disclosure">{AMAZON.disclosure}</p>
+    )}
+
+    <div class="article-body">
+      <Content />
+
+      {d.products.length > 0 && (
+        <>
+          <h2>🛒 Les modèles recommandés dans ce guide</h2>
+          {d.products.map((asin) => <ProductCard asin={asin} />)}
+        </>
+      )}
+    </div>
+  </article>
+</BaseLayout>
