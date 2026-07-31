@@ -21,11 +21,14 @@ const dateStr = d.pubDate.toLocaleDateString('fr-FR', {
   year: 'numeric', month: 'long', day: 'numeric',
 });
 
+const pinImage = `/pins/${article.id}.png`;
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Article',
   headline: d.title,
   description: d.description,
+  image: new URL(pinImage, SITE.url).toString(),
   datePublished: d.pubDate.toISOString(),
   dateModified: (d.updatedDate ?? d.pubDate).toISOString(),
   author: { '@type': 'Organization', name: SITE.author },
@@ -40,6 +43,7 @@ const jsonLd = {
   description={d.description}
   path={`/${article.id}`}
   type="article"
+  image={pinImage}
   jsonLd={jsonLd}
 >
   <article class="article container">

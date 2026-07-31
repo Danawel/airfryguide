@@ -10,6 +10,8 @@ interface Props {
   /** JSON-LD à injecter (schema.org) */
   jsonLd?: object;
   type?: 'website' | 'article';
+  /** Image d'aperçu (chemin type "/pins/xxx.png") pour Facebook/Twitter/Pinterest */
+  image?: string;
 }
 
 const {
@@ -18,10 +20,12 @@ const {
   path = '',
   jsonLd,
   type = 'website',
+  image,
 } = Astro.props;
 
 const fullTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} — ${SITE.tagline}`;
 const canonical = new URL(path, SITE.url).toString();
+const ogImage = image ? new URL(image, SITE.url).toString() : null;
 ---
 
 <!doctype html>
@@ -41,7 +45,9 @@ const canonical = new URL(path, SITE.url).toString();
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content="fr_FR" />
+    {ogImage && <meta property="og:image" content={ogImage} />}
     <meta name="twitter:card" content="summary_large_image" />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
 
     <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍟</text></svg>" />
