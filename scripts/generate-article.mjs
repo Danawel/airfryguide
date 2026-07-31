@@ -21,7 +21,7 @@ const ARTICLES_DIR = path.join(ROOT, 'src', 'content', 'articles');
 
 // Modèle utilisé. claude-opus-5 = qualité maximale.
 // Pour réduire fortement le coût par article, remplace par 'claude-sonnet-5'.
-const MODEL = 'claude-opus-5';
+const MODEL = 'claude-sonnet-5';
 
 const client = new Anthropic(); // lit automatiquement ANTHROPIC_API_KEY
 
