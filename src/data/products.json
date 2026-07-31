@@ -2,7 +2,7 @@
   "_comment": "Base de données des produits air fryer mis en avant. L'ASIN est l'identifiant Amazon (visible dans l'URL d'un produit : /dp/ASIN). Remplace les ASIN par de vrais produits quand tu veux. Le prix est indicatif (affiché à titre d'exemple, Amazon ne permet pas d'afficher le prix live sans API).",
   "products": [
     {
-      "asin": "B08GYKNCCP",
+      "asin": "B07VWRDQKD",
       "name": "Ninja Air Fryer AF100EU",
       "shortName": "Ninja AF100EU",
       "capacity": "3,8 L",
@@ -14,20 +14,20 @@
       "cons": ["Capacité limitée pour une famille"]
     },
     {
-      "asin": "B09XXTVN8N",
-      "name": "Ninja Foodi Dual Zone AF400EU",
+      "asin": "B0DTKK823C",
+      "name": "Ninja Foodi Dual Zone AF200EU",
       "shortName": "Ninja Dual Zone",
-      "capacity": "9,5 L (2x4,75 L)",
-      "power": "2470 W",
-      "priceHint": "~230 €",
+      "capacity": "7,6 L (2x3,8 L)",
+      "power": "2400 W",
+      "priceHint": "~180 €",
       "bestFor": "Familles de 4 à 6 personnes",
       "highlight": "Deux tiroirs indépendants pour cuire 2 plats à la fois",
       "pros": ["Double zone de cuisson", "Grande capacité", "Fonction Sync (2 plats prêts en même temps)"],
       "cons": ["Encombrant", "Plus cher"]
     },
     {
-      "asin": "B0B4DQ2N4S",
-      "name": "Philips Airfryer Série 3000 HD9243",
+      "asin": "B0FFN7G8SZ",
+      "name": "Philips Airfryer Série 3000",
       "shortName": "Philips 3000",
       "capacity": "4,1 L",
       "power": "1500 W",
@@ -38,7 +38,7 @@
       "cons": ["Écran basique", "Moins de programmes"]
     },
     {
-      "asin": "B09WMKV2Z8",
+      "asin": "B0DQ1C6NPV",
       "name": "Cosori Air Fryer Pro LE 5 L",
       "shortName": "Cosori Pro LE",
       "capacity": "5 L",
@@ -50,7 +50,7 @@
       "cons": ["Interface tactile parfois capricieuse"]
     },
     {
-      "asin": "B07VLKY2QX",
+      "asin": "B0B8J4Z5DW",
       "name": "Moulinex Easy Fry & Grill",
       "shortName": "Moulinex Easy Fry",
       "capacity": "4,2 L",
@@ -62,8 +62,8 @@
       "cons": ["Panier un peu petit pour le grill"]
     },
     {
-      "asin": "B09B1LR2Z9",
-      "name": "Tefal Easy Fry XXL",
+      "asin": "B0B88RDCSR",
+      "name": "Tefal Easy Fry XXL (Flexcook)",
       "shortName": "Tefal XXL",
       "capacity": "6,5 L",
       "power": "1830 W",

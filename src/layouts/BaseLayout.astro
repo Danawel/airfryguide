@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { SITE } from '../config.ts';
+import { SITE, ANALYTICS } from '../config.ts';
 
 interface Props {
   title?: string;
@@ -80,5 +80,12 @@ const ogImage = image ? new URL(image, SITE.url).toString() : null;
         <div><a href="/a-propos">À propos & mentions</a></div>
       </div>
     </footer>
+    {ANALYTICS.cloudflareToken && (
+      <script
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={`{"token": "${ANALYTICS.cloudflareToken}"}`}
+      />
+    )}
   </body>
 </html>

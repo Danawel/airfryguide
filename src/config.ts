@@ -47,6 +47,15 @@ export const AMAZON = {
     "l'un de ces liens, cela ne vous coûte pas plus cher et nous soutient.",
 };
 
+// =============================================================
+//  STATISTIQUES DE VISITES (Cloudflare Web Analytics — gratuit)
+//  Colle ici le "token" fourni par Cloudflare pour activer le compteur.
+//  Laisse vide pour désactiver.
+// =============================================================
+export const ANALYTICS = {
+  cloudflareToken: '',
+};
+
 // Construit une URL affiliée propre à partir d'un ASIN (identifiant produit Amazon)
 export function amazonLink(asin: string): string {
   return `https://${AMAZON.domain}/dp/${asin}?tag=${AMAZON.tag}`;
