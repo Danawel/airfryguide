@@ -46,10 +46,70 @@ function loadJSON(rel) {
   return JSON.parse(fs.readFileSync(path.join(ROOT, rel), 'utf8'));
 }
 
-// Trouve le prochain sujet non encore rédigé
+// Liste des titres déjà rédigés (pour ne jamais se répéter)
+function existingTitlesSet() {
+  return new Set(fs.readdirSync(ARTICLES_DIR).map((f) => f.replace(/\.md$/, '')));
+}
+
+// Trouve le prochain sujet non encore rédigé dans la liste fixe
 function nextTopic(topics) {
-  const existing = new Set(fs.readdirSync(ARTICLES_DIR).map((f) => f.replace(/\.md$/, '')));
+  const existing = existingTitlesSet();
   return topics.find((t) => !existing.has(slugify(t.title)));
+}
+
+// Quand la liste fixe est épuisée : Claude invente un sujet inédit.
+// Il choisit lui-même un titre, un type, des mots-clés SEO et de VRAIS ASIN
+// parmi le catalogue produits, en évitant tout ce qui existe déjà.
+async function inventTopic() {
+  const existing = existingTitlesSet();
+  const allProducts = loadJSON('src/data/products.json').products;
+
+  // Liste des sujets déjà couverts (titres lisibles) pour éviter les doublons.
+  const done = [...existing].join(', ');
+  const catalogue = allProducts
+    .map((p) => `${p.asin} = ${p.name} (${p.capacity}, idéal ${p.bestFor})`)
+    .join('\n');
+
+  const user = `Tu gères le calendrier éditorial d'un blog français sur les air fryers (friteuses sans huile).
+Propose UN SEUL nouveau sujet d'article, inédit et utile pour le SEO, que le lecteur pourrait chercher sur Google.
+
+SUJETS DÉJÀ TRAITÉS (slugs, à NE PAS répéter, même de façon proche) :
+${done || '(aucun pour l’instant)'}
+
+CATALOGUE PRODUITS disponibles (choisis 0 à 3 ASIN pertinents pour ce sujet) :
+${catalogue}
+
+Réponds UNIQUEMENT avec un objet JSON strict, sans texte autour, au format :
+{"title":"...","type":"guide|comparatif|article","keywords":["...","...","..."],"products":["ASIN",...]}
+
+Contraintes :
+- "title" en français, accrocheur, différent de tout sujet déjà traité.
+- "type" = "comparatif" si on compare des modèles, "guide" si c'est un tuto/recettes/pratique, "article" sinon.
+- "keywords" = 3 expressions de recherche Google réalistes.
+- "products" = uniquement des ASIN de la liste ci-dessus (ou [] si le sujet ne concerne aucun produit précis).`;
+
+  const stream = client.messages.stream({
+    model: MODEL,
+    max_tokens: 500,
+    system: "Tu es un stratège SEO. Tu réponds toujours par un JSON valide et rien d'autre.",
+    messages: [{ role: 'user', content: user }],
+  });
+  const message = await stream.finalMessage();
+  const raw = message.content.filter((b) => b.type === 'text').map((b) => b.text).join('').trim();
+
+  // Extrait le JSON même si le modèle ajoute des retours à la ligne.
+  const json = raw.slice(raw.indexOf('{'), raw.lastIndexOf('}') + 1);
+  const topic = JSON.parse(json);
+
+  // Garde-fous : type valide, ASIN existants, pas de doublon.
+  if (!['guide', 'comparatif', 'article'].includes(topic.type)) topic.type = 'article';
+  const validAsins = new Set(allProducts.map((p) => p.asin));
+  topic.products = (topic.products || []).filter((a) => validAsins.has(a));
+  if (existing.has(slugify(topic.title))) {
+    topic.title = `${topic.title} (${new Date().getFullYear()})`;
+  }
+  console.log(`🧠 Sujet inventé par l'IA : « ${topic.title} » [${topic.type}]`);
+  return topic;
 }
 
 // ---- Génération d'un article ----------------------------------------
@@ -145,10 +205,12 @@ async function main() {
   const count = batch ? 5 : 1;
 
   for (let i = 0; i < count; i++) {
-    const topic = nextTopic(topics);
+    // 1) On pioche d'abord dans la liste fixe (topics.json).
+    // 2) Si elle est épuisée, l'IA invente elle-même un sujet inédit -> jamais de panne.
+    let topic = nextTopic(topics);
     if (!topic) {
-      console.log('ℹ️  Plus aucun sujet disponible dans topics.json. Ajoute-en pour continuer.');
-      break;
+      console.log('ℹ️  Liste topics.json épuisée → génération automatique d\'un sujet.');
+      topic = await inventTopic();
     }
     // En mode batch, on échelonne les dates pour publier 1 par jour.
     await generateOne(topic, todayISO(batch ? i : 0));
