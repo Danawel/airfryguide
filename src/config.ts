@@ -59,7 +59,7 @@ export const ANALYTICS = {
   // 1) Crée un compte sur https://analytics.google.com  2) Crée une propriété pour ton site
   // 3) Copie l'identifiant de mesure (format G-XXXXXXXXXX) et colle-le ci-dessous.
   // Laisse vide pour désactiver.
-  gaMeasurementId: '',
+  gaMeasurementId: 'G-94KPJ8ZN2M',
 };
 
 // =============================================================
