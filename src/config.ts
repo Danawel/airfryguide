@@ -54,7 +54,28 @@ export const AMAZON = {
 // =============================================================
 export const ANALYTICS = {
   cloudflareToken: '',
+
+  // Google Analytics 4 (GRATUIT) : compte les visites ET les clics sur les liens Amazon.
+  // 1) Crée un compte sur https://analytics.google.com  2) Crée une propriété pour ton site
+  // 3) Copie l'identifiant de mesure (format G-XXXXXXXXXX) et colle-le ci-dessous.
+  // Laisse vide pour désactiver.
+  gaMeasurementId: '',
 };
+
+// =============================================================
+//  NOS AUTRES BLOGS (affichés en bas de chaque page)
+//  Ajoute ici tes autres sites : ils se croisent pour envoyer
+//  du trafic de l'un à l'autre. emoji = petite vignette.
+// =============================================================
+export const OTHER_BLOGS = [
+  {
+    name: 'MaisonFraîche',
+    tagline: 'Clim, rafraîchisseurs & déshumidificateurs',
+    product: 'Garder sa maison au frais tout l\'été',
+    url: 'https://sage-chimera-00671a.netlify.app',
+    emoji: '❄️',
+  },
+];
 
 // Construit une URL affiliée propre à partir d'un ASIN (identifiant produit Amazon)
 export function amazonLink(asin: string): string {

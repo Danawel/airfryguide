@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ProductCard from '../components/ProductCard.astro';
 import { SITE, AMAZON } from '../config.ts';
 import { publishedArticles, typeLabel } from '../lib/articles.ts';
+import productData from '../data/products.json';
 
 export async function getStaticPaths() {
   const articles = await publishedArticles();
@@ -22,6 +23,13 @@ const dateStr = d.pubDate.toLocaleDateString('fr-FR', {
 });
 
 const pinImage = `/pins/${article.id}.png`;
+
+// Photo de tête : 1er produit associé qui a une image, sinon l'épingle générée.
+const leadProduct = d.products
+  .map((asin) => productData.products.find((p) => p.asin === asin))
+  .find((p) => p && p.image);
+const leadImage = leadProduct?.image ?? pinImage;
+const leadAlt = leadProduct?.name ?? d.title;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -50,6 +58,8 @@ const jsonLd = {
     <span class="badge">{typeLabel(d.type)}</span>
     <h1>{d.title}</h1>
     <p class="meta">Publié le {dateStr} · {SITE.author}</p>
+
+    <img class="article-lead" src={leadImage} alt={leadAlt} loading="eager" />
 
     {d.products.length > 0 && (
       <p class="disclosure">{AMAZON.disclosure}</p>

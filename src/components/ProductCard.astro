@@ -11,13 +11,18 @@ const p = productData.products.find((x) => x.asin === asin);
 
 {p && (
   <div class="product-card">
+    {p.image && (
+      <a class="product-media" href={amazonLink(p.asin)} target="_blank" rel="nofollow sponsored noopener">
+        <img src={p.image} alt={p.name} loading="lazy" width="220" height="220" />
+      </a>
+    )}
     <div class="ptop">
       <h4>{p.name}</h4>
       <span class="price">{p.priceHint}</span>
     </div>
     <div class="specs">
       <span class="spec">Capacité : {p.capacity}</span>
-      <span class="spec">Puissance : {p.power}</span>
+      <span class="spec">Type : {p.power}</span>
       <span class="spec">Idéal : {p.bestFor}</span>
     </div>
     <p class="highlight">{p.highlight}</p>

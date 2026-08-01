@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { SITE, ANALYTICS } from '../config.ts';
+import { SITE, ANALYTICS, OTHER_BLOGS } from '../config.ts';
 
 interface Props {
   title?: string;
@@ -74,6 +74,27 @@ const ogImage = image ? new URL(image, SITE.url).toString() : null;
       <slot />
     </main>
 
+    {OTHER_BLOGS.length > 0 && (
+      <section class="other-blogs">
+        <div class="inner">
+          <h2>Découvrez aussi nos autres blogs</h2>
+          <div class="ob-grid">
+            {OTHER_BLOGS.map((b) => (
+              <a class="ob-card" href={b.url} target="_blank" rel="noopener">
+                <span class="ob-emoji">{b.emoji}</span>
+                <span class="ob-text">
+                  <strong>{b.name}</strong>
+                  <span class="ob-tagline">{b.tagline}</span>
+                  {b.product && <span class="ob-product">{b.product}</span>}
+                </span>
+                <span class="ob-go">Voir le blog →</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
     <footer class="site-footer">
       <div class="inner">
         <div>© {new Date().getFullYear()} {SITE.name}. Tous droits réservés.</div>
@@ -86,6 +107,28 @@ const ogImage = image ? new URL(image, SITE.url).toString() : null;
         src="https://static.cloudflareinsights.com/beacon.min.js"
         data-cf-beacon={`{"token": "${ANALYTICS.cloudflareToken}"}`}
       />
+    )}
+
+    {ANALYTICS.gaMeasurementId && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${ANALYTICS.gaMeasurementId}`} />
+        <script set:html={`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${ANALYTICS.gaMeasurementId}');
+
+          document.addEventListener('click', function (e) {
+            var a = e.target.closest('a[rel~="sponsored"], a[href*="amazon."]');
+            if (!a) return;
+            var m = (a.getAttribute('href') || '').match(/\\/dp\\/([A-Z0-9]{10})/);
+            gtag('event', 'clic_lien_amazon', {
+              produit_asin: m ? m[1] : 'inconnu',
+              page: location.pathname
+            });
+          });
+        `} />
+      </>
     )}
   </body>
 </html>

@@ -2,8 +2,17 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../config.ts';
 import { publishedArticles, typeLabel } from '../lib/articles.ts';
+import productData from '../data/products.json';
 
 const articles = await publishedArticles();
+
+// Vignette d'un article : image du 1er produit associé, sinon l'épingle générée.
+function thumbFor(a) {
+  const prod = (a.data.products || [])
+    .map((asin) => productData.products.find((p) => p.asin === asin))
+    .find((p) => p && p.image);
+  return prod ? prod.image : `/pins/${a.id}.png`;
+}
 
 function fmt(date: Date) {
   return date.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
@@ -11,18 +20,20 @@ function fmt(date: Date) {
 ---
 
 <BaseLayout path="/">
-  <section class="hero">
+  <section class="hero compact">
     <h1>Bien choisir et utiliser votre air fryer</h1>
     <p>{SITE.tagline}. Un nouveau guide, comparatif ou article publié chaque jour.</p>
   </section>
 
   <div class="container wide">
+    <h2 class="section-title">Nos derniers guides &amp; comparatifs</h2>
     {articles.length === 0 ? (
       <p style="text-align:center;color:var(--muted)">Les premiers articles arrivent très bientôt. Revenez demain !</p>
     ) : (
       <div class="grid">
         {articles.map((a) => (
           <a class="card" href={`/${a.id}`}>
+            <img class="card-thumb" src={thumbFor(a)} alt={a.data.title} loading="lazy" />
             <span class="badge">{typeLabel(a.data.type)}</span>
             <h2>{a.data.title}</h2>
             <p>{a.data.description}</p>

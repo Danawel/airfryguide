@@ -3,7 +3,7 @@ title: "Meilleur air fryer 2026 : comparatif des 6 modèles à connaître"
 description: "Notre comparatif complet des meilleurs air fryers en 2026 : Ninja, Philips, Cosori, Moulinex, Tefal. Capacités, prix, avantages et modèle idéal selon votre foyer."
 pubDate: 2026-07-29
 type: comparatif
-products: ["B07VWRDQKD", "B0DTKK823C", "B0FFN7G8SZ", "B0DQ1C6NPV", "B0B88RDCSR"]
+products: ["B0CZXXVKS7", "B0F4KHWH9M", "B0F99KSRL5", "B0FG7Q4XRR", "B0DGVTNHH8"]
 keywords: ["meilleur air fryer", "comparatif air fryer 2026", "friteuse sans huile", "quel air fryer choisir"]
 ---
 

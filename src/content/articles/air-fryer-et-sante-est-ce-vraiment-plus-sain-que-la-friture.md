@@ -3,7 +3,7 @@ title: "Air fryer et santé : est-ce vraiment plus sain que la friture ?"
 description: "Vous avez craqué pour un air fryer en pensant enfin manger des frites croustillantes sans culpabiliser ? Vous n'êtes pas seul. Depuis quelques années, la f"
 pubDate: 2026-07-31
 type: article
-products: ["B07VWRDQKD"]
+products: ["B0CZXXVKS7"]
 keywords: ["air fryer santé","friteuse sans huile sain","acrylamide air fryer"]
 ---
 Vous avez craqué pour un air fryer en pensant enfin manger des frites croustillantes sans culpabiliser ? Vous n'êtes pas seul. Depuis quelques années, la friteuse sans huile s'est imposée dans les cuisines françaises comme LA solution miracle pour concilier gourmandise et alimentation équilibrée. Mais entre le marketing bien huilé (sans mauvais jeu de mots) des fabricants et les vraies données scientifiques, il y a parfois un monde. Alors, l'air fryer est-il réellement plus sain que la friture traditionnelle, ou s'agit-il simplement d'un argument commercial bien ficelé ? On fait le point, sans exagération ni idées reçues.

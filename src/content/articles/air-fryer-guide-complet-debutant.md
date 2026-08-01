@@ -3,7 +3,7 @@ title: "Air fryer : le guide complet pour débuter (réglages, cuissons, entreti
 description: "Vous venez d'acheter un air fryer ? Ce guide complet vous explique tout : premiers réglages, températures et temps de cuisson, erreurs à éviter, nettoyage et meilleures recettes pour débuter."
 pubDate: 2026-07-31
 type: guide
-products: ["B07VWRDQKD", "B0DQ1C6NPV"]
+products: ["B0CZXXVKS7", "B0FG7Q4XRR"]
 keywords: ["guide air fryer débutant", "comment utiliser air fryer", "temps de cuisson air fryer", "réglages air fryer"]
 ---
 
