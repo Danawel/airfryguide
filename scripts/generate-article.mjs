@@ -46,6 +46,47 @@ function loadJSON(rel) {
   return JSON.parse(fs.readFileSync(path.join(ROOT, rel), 'utf8'));
 }
 
+// Normalise un texte pour comparaison (minuscules, sans accents ni ponctuation).
+function normText(s) {
+  return (s || '')
+    .toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+// Marques concurrentes à ne jamais citer si elles n'ont pas de fiche dans l'article.
+const COMPETITOR_BRANDS = [
+  'philips', 'tefal', 'seb', 'rowenta', 'delonghi', 'russell hobbs', 'proscenic',
+  'aigostar', 'aeg', 'electrolux', 'samsung', 'lg', 'whirlpool', 'irobot', 'roomba',
+  'roborock', 'dreame', 'ecovacs', 'dyson', 'xiaomi', 'eufy', 'shark', 'daewoo',
+  'klarstein', 'trotec', 'inventor', 'midea', 'daikin', 'ariston', 'olimpia', 'cosori',
+  'ninja', 'moulinex', 'temprium', 'rowenta', 'hoover', 'bissell',
+];
+
+// Contrôle de cohérence texte <-> fiches produits.
+// Renvoie la liste des problèmes (vide = tout est cohérent).
+function coherenceProblems(body, featured) {
+  const nbody = normText(body);
+  const problems = [];
+  // 1) Chaque fiche produit DOIT être nommée dans le texte.
+  for (const p of featured) {
+    const cands = [p.shortName, p.name].filter(Boolean).map(normText);
+    if (!cands.some((c) => c && nbody.includes(c))) {
+      problems.push(`fiche jamais citée dans le texte : « ${p.shortName || p.name} »`);
+    }
+  }
+  // 2) Aucune marque concurrente sans fiche ne doit apparaître dans le texte.
+  const featuredText = normText(featured.map((p) => `${p.name} ${p.shortName || ''}`).join(' '));
+  for (const b of COMPETITOR_BRANDS) {
+    const nb = normText(b);
+    if (!featuredText.includes(nb) && new RegExp(`(^| )${nb}( |$)`).test(nbody)) {
+      problems.push(`marque citée sans fiche produit : « ${b} »`);
+    }
+  }
+  return problems;
+}
+
 // Liste des titres déjà rédigés (pour ne jamais se répéter)
 function existingTitlesSet() {
   return new Set(fs.readdirSync(ARTICLES_DIR).map((f) => f.replace(/\.md$/, '')));
@@ -133,41 +174,70 @@ async function generateOne(topic, dateISO) {
     "concret, utile, sans blabla ni promesses exagérées. Tu ne mens jamais sur les caractéristiques d'un produit " +
     "et tu n'inventes pas de prix précis.";
 
+  const allowedNames = featured.map((p) => p.name).join(' | ') || '(aucun modèle précis)';
+
   const user = `Rédige un article de blog en français d'environ 2500 mots.
 
 TITRE : « ${topic.title} »
 TYPE : ${topic.type}
 MOTS-CLÉS SEO à intégrer naturellement : ${(topic.keywords || []).join(', ')}
 
-PRODUITS à mentionner par leur nom dans le texte (utilise UNIQUEMENT ces caractéristiques, n'en invente pas d'autres) :
+PRODUITS AUTORISÉS — ce sont les SEULS modèles que tu as le droit de nommer, avec leur nom EXACT :
 ${productContext}
+
+RÈGLES ABSOLUES DE COHÉRENCE (impératif, l'article sera rejeté sinon) :
+- Nomme CHACUN de ces produits au moins une fois, en reprenant EXACTEMENT son nom : ${allowedNames}.
+- N'invente JAMAIS d'autre modèle, référence ou numéro (ex : « X 3000 », « Y Pro »). Interdiction de citer une marque ou un modèle concurrent précis absent de la liste ci-dessus.
+- Pour évoquer des alternatives, reste générique : « un modèle d'entrée de gamme », « un appareil premium », sans nom de marque.
+- Si tu fais un tableau comparatif, il doit contenir EXACTEMENT ces produits (mêmes noms), et aucun autre.
+- N'utilise que les caractéristiques fournies ci-dessus ; n'invente pas de specs ni de prix précis.
 
 CONSIGNES DE RÉDACTION :
 - Commence directement par un paragraphe d'introduction accrocheur (PAS de titre H1, il est déjà géré).
 - Structure avec des sous-titres en Markdown : ## pour les grandes sections, ### pour les sous-sections.
-- Inclus au moins un tableau comparatif en Markdown si le sujet s'y prête (temps de cuisson, comparaison de modèles, etc.).
+- Inclus un tableau comparatif en Markdown des produits autorisés si le sujet s'y prête.
 - Utilise des listes à puces pour aérer.
 - Style pédagogique, phrases claires, paragraphes courts.
-- Mentionne les produits ci-dessus par leur nom quand c'est pertinent, MAIS n'écris PAS de section "où acheter" ni de lien : des encarts produits avec liens seront ajoutés automatiquement à la fin.
+- N'écris PAS de section "où acheter" ni de lien : des encarts produits avec liens seront ajoutés automatiquement à la fin.
 - Termine par une courte conclusion pratique.
 - Vise ~2500 mots, riche et complet.
 - Réponds UNIQUEMENT avec le corps de l'article en Markdown (aucune balise de code, aucun commentaire, pas de frontmatter).`;
 
-  const stream = client.messages.stream({
-    model: MODEL,
-    max_tokens: 16000,
-    thinking: { type: 'adaptive' },
-    output_config: { effort: 'high' },
-    system,
-    messages: [{ role: 'user', content: user }],
-  });
+  // Appelle le modèle. `reminder` = rappel supplémentaire ajouté en cas de 2e tentative.
+  async function runModel(reminder) {
+    const stream = client.messages.stream({
+      model: MODEL,
+      max_tokens: 16000,
+      thinking: { type: 'adaptive' },
+      output_config: { effort: 'high' },
+      system,
+      messages: [{ role: 'user', content: user + reminder }],
+    });
+    const message = await stream.finalMessage();
+    return message.content
+      .filter((b) => b.type === 'text')
+      .map((b) => b.text)
+      .join('\n')
+      .trim();
+  }
 
-  const message = await stream.finalMessage();
-  let body = message.content
-    .filter((b) => b.type === 'text')
-    .map((b) => b.text)
-    .join('\n')
-    .trim();
+  // 1re écriture, puis contrôle de cohérence texte <-> fiches produits.
+  let body = await runModel('');
+  let problems = coherenceProblems(body, featured);
+  if (problems.length) {
+    console.log(`♻️  Incohérence détectée → 2e tentative stricte (${problems.join(' ; ')})`);
+    body = await runModel(
+      `\n\nIMPORTANT : ta version précédente a oublié des modèles imposés ou nommé des modèles interdits. ` +
+        `Recommence en ne nommant QUE : ${allowedNames}. N'invente aucun autre modèle ni marque.`
+    );
+    problems = coherenceProblems(body, featured);
+  }
+  // Toujours incohérent après 2 essais : on BLOQUE la publication (aucun fichier écrit).
+  if (problems.length) {
+    throw new Error(
+      `PUBLICATION BLOQUÉE — incohérence texte/fiches pour « ${topic.title} » : ${problems.join(' ; ')}`
+    );
+  }
 
   // Génère une meta-description courte (< 160 caractères) à partir du 1er paragraphe
   const firstPara = body.split('\n').find((l) => l.trim().length > 40) || topic.title;

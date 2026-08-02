@@ -85,6 +85,6 @@ Bonne surprise : un air fryer est **plus économe qu'un four traditionnel**. Il 
 
 ## Quel modèle pour bien débuter ?
 
-Si vous lisez ce guide parce que vous hésitez encore, deux valeurs sûres pour démarrer sans vous ruiner : un modèle compact et simple pour une à trois personnes, ou un modèle un peu plus grand avec des programmes guidés si vous aimez être accompagné. Vous trouverez nos recommandations détaillées ci-dessous.
+Si vous lisez ce guide parce que vous hésitez encore, deux valeurs sûres pour démarrer : le **Ninja MAX PRO**, un grand tiroir unique de 6,2 L très polyvalent (frire, rôtir, cuire au four, déshydrater), idéal pour 3 à 5 personnes ; ou le **Cosori TurboBlaze** (6 L, 9 programmes guidés et revêtement céramique sans PFAS), parfait si vous aimez être accompagné pour ne jamais rater une cuisson. Vous trouverez nos recommandations détaillées ci-dessous.
 
 Avec ces bases, vous êtes paré. Le secret d'un bon air fryer, c'est la pratique : lancez-vous dès ce soir avec une fournée de frites, ajustez les temps à votre goût, et en une semaine l'appareil sera devenu indispensable.

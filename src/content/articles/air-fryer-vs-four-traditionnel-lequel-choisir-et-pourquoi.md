@@ -42,7 +42,7 @@ Ces écarts s'expliquent par la concentration de la chaleur dans un petit volume
 
 ### La consommation électrique
 
-Un four traditionnel affiche généralement une puissance comprise entre 2000 et 2500 W, tandis qu'un air fryer se situe plutôt autour de 1500 W, comme c'est le cas pour le Philips Airfryer Série 3000 et le Cosori Air Fryer Pro LE 5 L, tous deux annoncés à 1500 W.
+Un four traditionnel affiche généralement une puissance comprise entre 2000 et 2500 W, tandis qu'un air fryer se situe plutôt autour de 1500 W, comme le Ninja CRISPi et le Cosori TurboBlaze.
 
 Mais la puissance brute ne fait pas tout : c'est la durée de fonctionnement qui pèse sur la facture. Un air fryer, plus rapide et sans préchauffage prolongé, consomme donc globalement moins d'énergie sur un cycle de cuisson complet, à quantité équivalente. Pour une portion de frites ou un poulet pour deux personnes, la différence est nette. Pour un grand plat familial ou une cuisson longue (rôti, gratin volumineux), le four reprend l'avantage car il n'a pas besoin de tourner en plusieurs fournées.
 
@@ -52,14 +52,14 @@ C'est sans doute la plus grande différence air fryer four en usage quotidien. U
 
 L'air fryer, lui, joue dans une autre catégorie :
 
-- Le Philips Airfryer Série 3000 propose une capacité de 4,1 litres, pensée pour 2 à 4 personnes.
-- Le Cosori Air Fryer Pro LE 5 L monte à 5 litres, adapté à 3 à 5 personnes.
+- Le Ninja CRISPi propose une capacité compacte de 3,8 litres, pensée pour 1 à 2 personnes.
+- Le Cosori TurboBlaze monte à 6 litres, adapté à 3 à 5 personnes.
 
 Pour une famille nombreuse ou des repas copieux, il faudra parfois cuire en plusieurs fournées, ce qui réduit l'avantage « rapidité » de l'air fryer.
 
 ### L'encombrement sur le plan de travail
 
-Le four traditionnel est encastré ou posé, mais il ne prend pas de place sur le plan de travail puisqu'il est intégré à la cuisine. L'air fryer, à l'inverse, est un appareil posé qui occupe un emplacement fixe au quotidien, à côté du grille-pain ou de la bouilloire. Dans une petite cuisine, ce critère peut devenir déterminant. Les modèles compact comme le Philips Airfryer Série 3000 restent relativement raisonnables en taille, mais il faut prévoir de la place de rangement si vous ne l'utilisez pas tous les jours.
+Le four traditionnel est encastré ou posé, mais il ne prend pas de place sur le plan de travail puisqu'il est intégré à la cuisine. L'air fryer, à l'inverse, est un appareil posé qui occupe un emplacement fixe au quotidien, à côté du grille-pain ou de la bouilloire. Dans une petite cuisine, ce critère peut devenir déterminant. Les modèles compacts comme le Ninja CRISPi restent très raisonnables en taille, mais il faut prévoir de la place de rangement si vous ne l'utilisez pas tous les jours.
 
 ### Le résultat en termes de croustillant et de texture
 
@@ -86,7 +86,7 @@ L'air fryer excelle sur :
 - Les cuissons rapides pour 2 à 4 personnes
 - Le réchauffage de plats avec effet croustillant retrouvé (contrairement au micro-ondes qui ramollit)
 
-Certains modèles, comme le Cosori Air Fryer Pro LE 5 L, élargissent encore cette polyvalence grâce à leurs programmes automatiques : 9 programmes préréglés couplés à une application mobile proposant des recettes, ce qui facilite la prise en main pour les débutants qui ne savent pas quel temps ou quelle température choisir.
+Certains modèles, comme le Cosori TurboBlaze, élargissent encore cette polyvalence grâce à leurs 9 programmes automatiques préréglés et à leur revêtement céramique sans PFAS, ce qui facilite la prise en main pour les débutants qui ne savent pas quel temps ou quelle température choisir.
 
 ## Air fryer ou four : quel impact sur la santé et l'alimentation ?
 
@@ -104,8 +104,8 @@ Un four traditionnel encastrable coûte généralement entre 200 et 600 €, voi
 
 Les air fryers sont globalement plus accessibles à l'achat :
 
-- Le Philips Airfryer Série 3000 est proposé à un prix indicatif d'environ 90 €.
-- Le Cosori Air Fryer Pro LE 5 L affiche un prix indicatif d'environ 100 €.
+- Le Ninja CRISPi est proposé à un prix indicatif d'environ 130 €.
+- Le Cosori TurboBlaze affiche un prix indicatif d'environ 130 €.
 
 Ces tarifs en font un investissement bien plus léger qu'un four, surtout si vous possédez déjà un four traditionnel et cherchez simplement un complément.
 
@@ -145,15 +145,15 @@ En pratique, de nombreux foyers utilisent l'air fryer comme complément du four,
 
 Si vous êtes convaincu par l'air fryer et cherchez un premier modèle fiable, voici deux références qui se distinguent par leur rapport qualité-prix.
 
-### Philips Airfryer Série 3000
+### Ninja CRISPi
 
-Avec sa capacité de 4,1 litres et sa puissance de 1500 W, ce modèle est taillé pour les foyers de 2 à 4 personnes. Philips est la marque historique sur ce marché, reconnue pour la fiabilité de ses appareils et l'homogénéité de la cuisson, un critère important pour éviter les aliments trop cuits d'un côté et pas assez de l'autre. Son prix indicatif d'environ 90 € en fait une option d'entrée idéale pour découvrir la cuisson à air chaud sans se ruiner.
+Ultra-compact avec sa cuve de 3,8 litres, ce modèle 4-en-1 est taillé pour 1 à 2 personnes ou les petites cuisines. Il frit, rôtit, réchauffe et cuit, et ses bols passent du réfrigérateur à l'appareil puis à table. Son prix indicatif d'environ 130 € en fait une option idéale pour découvrir la cuisson à air chaud sans encombrer le plan de travail.
 
-### Cosori Air Fryer Pro LE 5 L
+### Cosori TurboBlaze
 
-Un peu plus spacieux avec ses 5 litres, ce modèle convient aux foyers de 3 à 5 personnes, donc aux familles un peu plus grandes ou à ceux qui aiment cuisiner en quantité. Toujours à 1500 W, il se distingue par ses 9 programmes de cuisson préréglés et son application mobile qui propose des recettes, un vrai plus pour les débutants qui veulent des résultats fiables sans avoir à deviner les réglages. Son prix indicatif tourne autour de 100 €.
+Plus spacieux avec ses 6 litres, ce modèle convient aux foyers de 3 à 5 personnes, donc aux familles un peu plus grandes ou à ceux qui aiment cuisiner en quantité. Il se distingue par ses 9 programmes de cuisson préréglés et son revêtement céramique sans PFAS, un vrai plus pour les débutants qui veulent des résultats fiables sans avoir à deviner les réglages. Son prix indicatif tourne autour de 130 €.
 
-Ces deux modèles illustrent bien les deux profils d'utilisateurs : le Philips pour la simplicité et la compacité, le Cosori pour davantage de capacité et de fonctionnalités connectées.
+Ces deux modèles illustrent bien deux profils d'utilisateurs : le Ninja CRISPi pour la compacité, le Cosori TurboBlaze pour davantage de capacité et de polyvalence.
 
 ## Les erreurs à éviter dans le choix
 
@@ -167,6 +167,6 @@ Avant de vous décider, gardez en tête ces quelques pièges classiques :
 
 ## Conclusion pratique
 
-Au final, la question « air fryer ou four » n'appelle pas de réponse universelle : tout dépend de votre mode de vie. Si vous vivez seul ou en couple, ou en petite famille, et que vous cherchez à gagner du temps au quotidien tout en réduisant votre consommation de matière grasse, l'air fryer est un excellent choix, avec des modèles accessibles comme le Philips Airfryer Série 3000 ou le Cosori Air Fryer Pro LE 5 L. Si vous cuisinez pour une famille nombreuse, faites régulièrement de la pâtisserie ou recevez souvent, le four traditionnel reste incontournable pour sa polyvalence et sa capacité.
+Au final, la question « air fryer ou four » n'appelle pas de réponse universelle : tout dépend de votre mode de vie. Si vous vivez seul ou en couple, ou en petite famille, et que vous cherchez à gagner du temps au quotidien tout en réduisant votre consommation de matière grasse, l'air fryer est un excellent choix, avec des modèles accessibles comme le Ninja CRISPi ou le Cosori TurboBlaze. Si vous cuisinez pour une famille nombreuse, faites régulièrement de la pâtisserie ou recevez souvent, le four traditionnel reste incontournable pour sa polyvalence et sa capacité.
 
 La meilleure option, si votre budget le permet, reste souvent de posséder les deux : le four pour les grandes occasions et les plats volumineux, l'air fryer pour la rapidité et la légèreté du quotidien. Ce duo complémentaire répond à la quasi-totalité des besoins culinaires d'un foyer moderne.
