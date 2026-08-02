@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE, LEGAL, ANALYTICS } from '../config.ts';
+const updated = new Date().toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+<BaseLayout title="Politique de confidentialité" description={`Politique de confidentialité et cookies de ${SITE.name}.`} path="/confidentialite">
+  <article class="article container">
+    <h1>Politique de confidentialité</h1>
+    <div class="article-body legal">
+      <p>{SITE.name} attache de l'importance au respect de votre vie privée. Cette page explique quelles
+      données sont collectées et comment elles sont utilisées, conformément au Règlement général sur la
+      protection des données (RGPD).</p>
+
+      <h2>Responsable du traitement</h2>
+      <p>{LEGAL.editor}, éditeur du site {SITE.name}. Contact :
+      <a href={`mailto:${LEGAL.email}`}>{LEGAL.email}</a>.</p>
+
+      <h2>Données collectées</h2>
+      <p>{SITE.name} ne demande aucune inscription et ne collecte aucune donnée nominative directe
+      (ni nom, ni adresse). Les seules données traitées sont des statistiques de fréquentation anonymisées.</p>
+
+      <h2>Mesure d'audience</h2>
+      <p>{ANALYTICS.gaMeasurementId
+        ? "Ce site utilise Google Analytics 4 pour mesurer la fréquentation (pages vues, provenance, type d'appareil). Ces données sont agrégées et servent uniquement à améliorer le contenu."
+        : "Ce site n'utilise pas de mesure d'audience externe pour le moment."}</p>
+
+      <h2>Cookies</h2>
+      <p>Des cookies de mesure d'audience peuvent être déposés. Vous pouvez à tout moment les refuser via
+      les réglages de votre navigateur, sans que cela n'empêche la consultation du site.</p>
+
+      <h2>Liens d'affiliation Amazon</h2>
+      <p>Lorsque vous cliquez sur un lien produit, Amazon peut déposer ses propres cookies afin d'attribuer
+      une éventuelle commission. Ce processus est géré par Amazon selon sa propre politique de confidentialité.</p>
+
+      <h2>Vos droits</h2>
+      <p>Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et d'effacement de vos
+      données. Pour l'exercer, écrivez à <a href={`mailto:${LEGAL.email}`}>{LEGAL.email}</a>.</p>
+
+      <p class="legal-date">Dernière mise à jour : {updated}</p>
+    </div>
+  </article>
+</BaseLayout>

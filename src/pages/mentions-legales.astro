@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE, LEGAL, AMAZON } from '../config.ts';
+const updated = new Date().toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+<BaseLayout title="Mentions légales" description={`Mentions légales du site ${SITE.name}.`} path="/mentions-legales">
+  <article class="article container">
+    <h1>Mentions légales</h1>
+    <div class="article-body legal">
+      <h2>Éditeur du site</h2>
+      <p>Le site <strong>{SITE.name}</strong> ({SITE.url}) est édité par {LEGAL.editor}, {LEGAL.status}.</p>
+      <p>Contact : <a href={`mailto:${LEGAL.email}`}>{LEGAL.email}</a></p>
+
+      <h2>Directeur de la publication</h2>
+      <p>{LEGAL.editor}</p>
+
+      <h2>Hébergeur</h2>
+      <p>Le site est hébergé par <strong>{LEGAL.hostName}</strong> — {LEGAL.hostAddress}.
+      <a href={LEGAL.hostSite} target="_blank" rel="noopener">{LEGAL.hostSite}</a></p>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>L'ensemble des contenus (textes, mises en page, éléments graphiques) présents sur {SITE.name}
+      est protégé par le droit d'auteur. Toute reproduction, même partielle, sans autorisation est interdite.
+      Les marques et images de produits citées appartiennent à leurs propriétaires respectifs.</p>
+
+      <h2>Liens d'affiliation</h2>
+      <p>{AMAZON.disclosure}</p>
+      <p>En tant que Partenaire Amazon, l'éditeur réalise un bénéfice sur les achats remplissant les
+      conditions requises.</p>
+
+      <h2>Données personnelles</h2>
+      <p>La gestion de vos données est détaillée dans notre
+      <a href="/confidentialite">politique de confidentialité</a>.</p>
+
+      <p class="legal-date">Dernière mise à jour : {updated}</p>
+    </div>
+  </article>
+</BaseLayout>

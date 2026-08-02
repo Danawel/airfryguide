@@ -1,22 +1,38 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE, AMAZON } from '../config.ts';
+import { SITE, AMAZON, AUTHOR, LEGAL } from '../config.ts';
 ---
-<BaseLayout title="À propos" description={`À propos de ${SITE.name} et mentions d'affiliation.`} path="/a-propos">
+<BaseLayout title="À propos" description={`À propos de ${SITE.name} et de son auteur.`} path="/a-propos">
   <article class="article container">
     <h1>À propos de {SITE.name}</h1>
     <div class="article-body">
       <p>{SITE.name} est un blog indépendant dédié aux <strong>air fryers</strong> (friteuses sans huile).
-      Nous publions chaque jour des guides complets, des comparatifs et des articles pratiques pour vous
-      aider à choisir le bon modèle et à en tirer le meilleur.</p>
+      Nous publions des guides complets, des comparatifs et des articles pratiques pour vous aider à choisir
+      le bon modèle et à en tirer le meilleur.</p>
+
+      <h2>Qui écrit sur {SITE.name} ?</h2>
+      <div class="author-box">
+        <span class="author-avatar">{AUTHOR.avatarInitial}</span>
+        <div>
+          <p class="author-name">{AUTHOR.name}</p>
+          <p class="author-role">{AUTHOR.role}</p>
+          <p>{AUTHOR.bio}</p>
+        </div>
+      </div>
+
+      <h2>Notre méthode</h2>
+      <p>Chaque comparatif repose sur les caractéristiques réelles des produits (capacité, puissance,
+      fonctions) et sur une lecture attentive des retours d'utilisateurs. Les prix affichés sont indicatifs
+      et peuvent varier : référez-vous toujours au prix affiché sur Amazon au moment de votre achat.</p>
 
       <h2>Affiliation</h2>
       <p>{AMAZON.disclosure}</p>
-      <p>Les prix affichés sont indicatifs et peuvent varier ; référez-vous toujours au prix affiché
-      sur Amazon au moment de votre achat.</p>
 
       <h2>Contact</h2>
-      <p>Une question, une suggestion&nbsp;? Écrivez-nous et nous vous répondrons avec plaisir.</p>
+      <p>Une question, une suggestion&nbsp;? Écrivez à
+      <a href={`mailto:${LEGAL.email}`}>{LEGAL.email}</a>.</p>
+      <p>Consultez aussi nos <a href="/mentions-legales">mentions légales</a> et notre
+      <a href="/confidentialite">politique de confidentialité</a>.</p>
     </div>
   </article>
 </BaseLayout>

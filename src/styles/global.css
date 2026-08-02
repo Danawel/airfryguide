@@ -145,3 +145,13 @@ a { color: var(--accent-dark); }
 .site-footer .inner { max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
 
 @media (max-width: 600px) { .hero h1 { font-size: 2rem; } .article h1 { font-size: 1.7rem; } }
+/* --- Auteur & pages légales (P2 crédibilité) --- */
+.author-box { display: flex; gap: 16px; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; margin: 18px 0; }
+.author-avatar { flex: 0 0 auto; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 1.4rem; color: #fff; background: var(--accent); }
+.author-name { font-weight: 700; margin: 0; }
+.author-role { margin: 2px 0 8px; font-size: 0.9rem; color: var(--muted); }
+.author-box p { margin: 4px 0; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 4px 16px; justify-content: center; }
+.footer-links a { white-space: nowrap; }
+.legal h2 { margin-top: 26px; }
+.legal-date { margin-top: 24px; font-size: 0.85rem; color: var(--muted); font-style: italic; }
