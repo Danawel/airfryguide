@@ -16,9 +16,8 @@ export const SITE = {
     'articles pour bien choisir et utiliser votre friteuse sans huile (air fryer). ' +
     'Conseils testés, recettes et sélections des meilleurs modèles.',
 
-  // URL FINALE du blog — À REMPLACER après le déploiement Netlify.
-  // Exemple : 'https://airfryguide.netlify.app'
-  url: 'https://statuesque-lolly-d520d0.netlify.app',
+  // URL FINALE du blog (Cloudflare Pages)
+  url: 'https://airfryguide.pages.dev',
 
   // Langue
   lang: 'fr',
@@ -69,10 +68,17 @@ export const ANALYTICS = {
 // =============================================================
 export const OTHER_BLOGS = [
   {
+    name: 'RobotAspi',
+    tagline: 'Robots aspirateurs : comparatifs & guides',
+    product: 'Le bon robot aspirateur pour votre maison',
+    url: 'https://robotaspi.pages.dev',
+    emoji: '🤖',
+  },
+  {
     name: 'MaisonFraîche',
     tagline: 'Clim, rafraîchisseurs & déshumidificateurs',
     product: 'Garder sa maison au frais tout l\'été',
-    url: 'https://sage-chimera-00671a.netlify.app',
+    url: 'https://maisonfraiche.pages.dev',
     emoji: '❄️',
   },
 ];
