@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { articlesByType, typeLabel } from '../lib/articles.ts';
+import { articlesByType, typeLabel, thumbFor } from '../lib/articles.ts';
 const articles = await articlesByType('comparatif');
 const fmt = (d: Date) => d.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
 ---
@@ -11,6 +11,7 @@ const fmt = (d: Date) => d.toLocaleDateString('fr-FR', { year: 'numeric', month:
       <div class="grid">
         {articles.map((a) => (
           <a class="card" href={`/${a.id}`}>
+            <img class="card-thumb" src={thumbFor(a)} alt={a.data.title} loading="lazy" />
             <span class="badge">{typeLabel(a.data.type)}</span>
             <h2>{a.data.title}</h2><p>{a.data.description}</p>
             <time datetime={a.data.pubDate.toISOString()}>{fmt(a.data.pubDate)}</time>

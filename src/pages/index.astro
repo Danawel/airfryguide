@@ -1,46 +1,84 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../config.ts';
-import { publishedArticles, typeLabel } from '../lib/articles.ts';
-import productData from '../data/products.json';
+import { publishedArticles, articlesByType, typeLabel, thumbFor } from '../lib/articles.ts';
 
-const articles = await publishedArticles();
+const all = await publishedArticles();
+const featured = all[0];
+const notFeatured = (a) => a.id !== featured?.id;
 
-// Vignette d'un article : image du 1er produit associé, sinon l'épingle générée.
-function thumbFor(a) {
-  const prod = (a.data.products || [])
-    .map((asin) => productData.products.find((p) => p.asin === asin))
-    .find((p) => p && p.image);
-  return prod ? prod.image : `/pins/${a.id}.png`;
-}
+const comparatifs = (await articlesByType('comparatif')).filter(notFeatured).slice(0, 6);
+const guides = (await articlesByType('guide')).filter(notFeatured).slice(0, 6);
+const conseils = (await articlesByType('article')).filter(notFeatured).slice(0, 6);
 
-function fmt(date: Date) {
-  return date.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
-}
+const fmt = (d) => d.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
+
+const categories = [
+  { href: '/comparatifs', emoji: '📊', label: 'Comparatifs', desc: 'Les modèles face à face' },
+  { href: '/guides', emoji: '📖', label: "Guides d'achat", desc: 'Bien choisir, pas à pas' },
+  { href: '/a-propos', emoji: '❓', label: 'Notre méthode', desc: 'Qui écrit & comment' },
+];
+
+const blocks = [
+  { title: 'Derniers comparatifs', href: '/comparatifs', items: comparatifs },
+  { title: 'Guides pratiques', href: '/guides', items: guides },
+  { title: 'À lire aussi', href: '/guides', items: conseils },
+];
 ---
 
 <BaseLayout path="/">
   <section class="hero compact">
-    <h1>Bien choisir et utiliser votre air fryer</h1>
+    <h1>{SITE.heroTitle}</h1>
     <p>{SITE.tagline}. Un nouveau guide, comparatif ou article publié chaque jour.</p>
   </section>
 
   <div class="container wide">
-    <h2 class="section-title">Nos derniers guides &amp; comparatifs</h2>
-    {articles.length === 0 ? (
-      <p style="text-align:center;color:var(--muted)">Les premiers articles arrivent très bientôt. Revenez demain !</p>
+    {all.length === 0 ? (
+      <p style="text-align:center;color:var(--muted)">Les premiers articles arrivent très bientôt. Revenez demain&nbsp;!</p>
     ) : (
-      <div class="grid">
-        {articles.map((a) => (
-          <a class="card" href={`/${a.id}`}>
-            <img class="card-thumb" src={thumbFor(a)} alt={a.data.title} loading="lazy" />
-            <span class="badge">{typeLabel(a.data.type)}</span>
-            <h2>{a.data.title}</h2>
-            <p>{a.data.description}</p>
-            <time datetime={a.data.pubDate.toISOString()}>{fmt(a.data.pubDate)}</time>
+      <>
+        {featured && (
+          <a class="featured" href={`/${featured.id}`}>
+            <img class="featured-img" src={thumbFor(featured)} alt={featured.data.title} loading="eager" />
+            <div class="featured-body">
+              <span class="badge">{typeLabel(featured.data.type)} · À la une</span>
+              <h2>{featured.data.title}</h2>
+              <p>{featured.data.description}</p>
+              <span class="btn">Lire le guide →</span>
+            </div>
           </a>
+        )}
+
+        <div class="cat-grid">
+          {categories.map((c) => (
+            <a class="cat-tile" href={c.href}>
+              <span class="cat-emoji">{c.emoji}</span>
+              <span class="cat-label">{c.label}</span>
+              <span class="cat-desc">{c.desc}</span>
+            </a>
+          ))}
+        </div>
+
+        {blocks.filter((b) => b.items.length > 0).map((b) => (
+          <section class="block">
+            <div class="block-head">
+              <h2 class="section-title">{b.title}</h2>
+              <a href={b.href}>Tout voir →</a>
+            </div>
+            <div class="grid">
+              {b.items.map((a) => (
+                <a class="card" href={`/${a.id}`}>
+                  <img class="card-thumb" src={thumbFor(a)} alt={a.data.title} loading="lazy" />
+                  <span class="badge">{typeLabel(a.data.type)}</span>
+                  <h2>{a.data.title}</h2>
+                  <p>{a.data.description}</p>
+                  <time datetime={a.data.pubDate.toISOString()}>{fmt(a.data.pubDate)}</time>
+                </a>
+              ))}
+            </div>
+          </section>
         ))}
-      </div>
+      </>
     )}
   </div>
 </BaseLayout>

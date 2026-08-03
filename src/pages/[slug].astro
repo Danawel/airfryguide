@@ -1,9 +1,9 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProductCard from '../components/ProductCard.astro';
-import { SITE, AMAZON } from '../config.ts';
-import { publishedArticles, typeLabel } from '../lib/articles.ts';
+import { SITE, AMAZON, amazonLink } from '../config.ts';
+import { publishedArticles, typeLabel, thumbFor } from '../lib/articles.ts';
 import productData from '../data/products.json';
 
 export async function getStaticPaths() {
@@ -18,9 +18,10 @@ const { article } = Astro.props;
 const { Content } = await render(article);
 const d = article.data;
 
-const dateStr = d.pubDate.toLocaleDateString('fr-FR', {
-  year: 'numeric', month: 'long', day: 'numeric',
-});
+const fmtDate = (date) =>
+  date.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
+const dateStr = fmtDate(d.pubDate);
+const verifStr = fmtDate(d.updatedDate ?? d.pubDate);
 
 const pinImage = `/pins/${article.id}.png`;
 
@@ -31,19 +32,50 @@ const leadProduct = d.products
 const leadImage = leadProduct?.image ?? pinImage;
 const leadAlt = leadProduct?.name ?? d.title;
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Article',
-  headline: d.title,
-  description: d.description,
-  image: new URL(pinImage, SITE.url).toString(),
-  datePublished: d.pubDate.toISOString(),
-  dateModified: (d.updatedDate ?? d.pubDate).toISOString(),
-  author: { '@type': 'Person', name: SITE.author },
-  publisher: { '@type': 'Organization', name: SITE.name },
-  keywords: d.keywords.join(', '),
-  inLanguage: SITE.lang,
-};
+// Produits mis en avant (pour le schema.org Product)
+const featuredProducts = d.products
+  .map((asin) => productData.products.find((p) => p.asin === asin))
+  .filter(Boolean);
+
+// Articles liés du même site : même type d'abord, puis on complète. Max 3.
+const others = (await publishedArticles()).filter((a) => a.id !== article.id);
+const sameType = others.filter((a) => a.data.type === d.type);
+const related = [...sameType, ...others.filter((a) => a.data.type !== d.type)].slice(0, 3);
+
+const categoryUrl = new URL(d.type === 'comparatif' ? '/comparatifs' : '/guides', SITE.url).toString();
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: d.title,
+    description: d.description,
+    image: new URL(pinImage, SITE.url).toString(),
+    datePublished: d.pubDate.toISOString(),
+    dateModified: (d.updatedDate ?? d.pubDate).toISOString(),
+    author: { '@type': 'Person', name: SITE.author },
+    publisher: { '@type': 'Organization', name: SITE.name },
+    keywords: d.keywords.join(', '),
+    inLanguage: SITE.lang,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Accueil', item: SITE.url },
+      { '@type': 'ListItem', position: 2, name: typeLabel(d.type), item: categoryUrl },
+      { '@type': 'ListItem', position: 3, name: d.title },
+    ],
+  },
+  ...featuredProducts.map((p) => ({
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: p.name,
+    image: p.image,
+    description: p.highlight,
+    brand: { '@type': 'Brand', name: p.name.split(' ')[0] },
+  })),
+];
 ---
 
 <BaseLayout
@@ -59,10 +91,37 @@ const jsonLd = {
     <h1>{d.title}</h1>
     <p class="meta">Publié le {dateStr} · {SITE.author}</p>
 
-    <img class="article-lead" src={leadImage} alt={leadAlt} loading="eager" />
+    {leadProduct ? (
+      <a href={amazonLink(leadProduct.asin)} target="_blank" rel="nofollow sponsored noopener">
+        <img class="article-lead" src={leadImage} alt={leadAlt} loading="eager" />
+      </a>
+    ) : (
+      <img class="article-lead" src={leadImage} alt={leadAlt} loading="eager" />
+    )}
+
+    <p class="verif">🔄 Dernière vérification des modèles et des prix&nbsp;: {verifStr}</p>
 
     {d.products.length > 0 && (
       <p class="disclosure">{AMAZON.disclosure}</p>
+    )}
+
+    {featuredProducts.length > 0 && (
+      <aside class="top-picks">
+        <p class="tp-title">⭐ Notre sélection en un coup d'œil</p>
+        {featuredProducts.map((p) => (
+          <a class="pick" href={amazonLink(p.asin)} target="_blank" rel="nofollow sponsored noopener">
+            {p.image && <img src={p.image} alt={p.name} loading="lazy" />}
+            <span class="pick-info">
+              <strong>{p.shortName}</strong>
+              <span class="pick-sub">{p.bestFor}</span>
+            </span>
+            <span class="pick-right">
+              <span class="pick-price">{p.priceHint}</span>
+              <span class="pick-cta">Voir sur Amazon →</span>
+            </span>
+          </a>
+        ))}
+      </aside>
     )}
 
     <div class="article-body">
@@ -75,5 +134,19 @@ const jsonLd = {
         </>
       )}
     </div>
+
+    {related.length > 0 && (
+      <section class="related">
+        <h2>À lire aussi</h2>
+        <div class="related-list">
+          {related.map((a) => (
+            <a class="related-card" href={`/${a.id}`}>
+              <img src={thumbFor(a)} alt={a.data.title} loading="lazy" />
+              <span>{a.data.title}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
   </article>
 </BaseLayout>

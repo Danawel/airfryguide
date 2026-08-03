@@ -10,6 +10,9 @@ export const SITE = {
   // Slogan / description courte
   tagline: 'Guides, comparatifs et astuces pour votre air fryer',
 
+  // Grand titre affiché en haut de la page d'accueil
+  heroTitle: 'Bien choisir et utiliser votre air fryer',
+
   // Description longue (SEO, balise meta description de l'accueil)
   description:
     'AirFryGuide publie chaque jour des guides complets, des comparatifs et des ' +

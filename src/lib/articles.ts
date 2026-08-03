@@ -1,6 +1,15 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
+import productData from '../data/products.json';
 
 export type Article = CollectionEntry<'articles'>;
+
+/** Vignette d'un article : photo du 1er produit associé qui a une image, sinon l'épingle générée. */
+export function thumbFor(a: Article): string {
+  const prod = (a.data.products || [])
+    .map((asin) => productData.products.find((p) => p.asin === asin))
+    .find((p) => p && p.image);
+  return prod ? prod.image : `/pins/${a.id}.png`;
+}
 
 /**
  * Retourne les articles réellement PUBLIÉS :
